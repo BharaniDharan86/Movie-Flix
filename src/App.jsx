@@ -20,7 +20,10 @@ export const average = (arr) =>
 export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
+  // const [watched, setWatched] = useState([]);
+  const [watched, setWatched] = useState(function () {
+    return JSON.parse(localStorage.getItem("watched"));
+  });
   const [loading, setLoading] = useState(false);
   const [errors, setError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
@@ -69,6 +72,7 @@ export default function App() {
 
   function handleAddWatched(newMovie) {
     setWatched((watched) => [...watched, newMovie]);
+    localStorage.setItem("watched", JSON.stringify([...watched, newMovie]));
   }
 
   function handleSelectedId(id) {
